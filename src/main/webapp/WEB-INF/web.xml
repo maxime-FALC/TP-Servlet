@@ -12,6 +12,10 @@
         <servlet-name>appelClientInState</servlet-name>
         <servlet-class>com.mycompany.webprojettp.appelClientInState</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowClientInStateWithForm</servlet-name>
+        <servlet-class>com.mycompany.webprojettp.ShowClientInStateWithForm</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>customerInformation</servlet-name>
         <url-pattern>/customerInformation</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>appelClientInState</servlet-name>
         <url-pattern>/appelClientInState</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowClientInStateWithForm</servlet-name>
+        <url-pattern>/ShowClientInStateWithForm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

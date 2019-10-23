@@ -7,10 +7,16 @@ package com.mycompany.webprojettp;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import simplejdbc.DAOException;
+import simplejdbc.DataSourceFactory;
 
 /**
  *
@@ -31,6 +37,15 @@ public class appelClientInState extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            
+            //liste des états
+            List<String> states = new LinkedList();
+            
+            //Object méthode qui permet de trouver la liste des états
+            Methods dao = new Methods(DataSourceFactory.getDataSource());
+            
+            
+            
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -41,11 +56,28 @@ public class appelClientInState extends HttpServlet {
             out.println("<h1>Servlet appelClientInState at " + request.getContextPath() + "</h1>");
             
             // TITRE
-                out.printf("<br/><br/>"
-                        + "<h1>Formulaire de recherche des clients</h1>"
-                        + "<br/><br/>");
+            out.printf("<br/><br/>"
+                        + "<h3>Formulaire de recherche des clients : </h3> ");
             
-                //TODO Faire un formulaire d'appel en html
+            
+            // formulaire liste déroulante 
+            out.printf("<form action=\"/TP-Servlet/showClientInState\" method=\"get\">");
+            out.printf("<select name =\"state\" >");
+            
+            try {
+                
+                states = dao.statesList();
+                
+                for(String s : states){
+                    out.printf("<option>%s</option>", s);
+                }
+                
+            } catch (DAOException ex) {
+                Logger.getLogger(appelClientInState.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            out.printf("</select>");
+            out.printf("<button type = \"submit\"> Confirmer </button>");
+            out.printf("</form>");
                 
             out.println("</body>");
             out.println("</html>");
